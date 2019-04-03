@@ -1,0 +1,12 @@
+add_subdirectory(a_project_executable)
+add_subdirectory(b_project_dynamiclib)
+add_subdirectory(b_project_staticlib)
+add_subdirectory(c_project_use_dynamiclib)
+add_subdirectory(c_project_use_staticlib)
+add_subdirectory(d_project_options)
+add_subdirectory(e_project_testcase)
+add_subdirectory(f_project_addsubmodule)
+add_subdirectory(f_project_linksubmodule)
+add_subdirectory(g_project_cpp11pragma)
+
+
