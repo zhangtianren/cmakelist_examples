@@ -8,5 +8,5 @@ add_subdirectory(e_project_testcase)
 add_subdirectory(f_project_addsubmodule)
 add_subdirectory(f_project_linksubmodule)
 add_subdirectory(g_project_cpp11pragma)
-
+add_subdirectory(g_project_cppcontainers)
 
