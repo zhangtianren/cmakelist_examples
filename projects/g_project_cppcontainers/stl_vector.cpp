@@ -27,6 +27,12 @@ vector 类是以容器（Container） 模式为基准设计的，也就是说，
 · vec.insert() - 插入一个或多个元素至 vector 内的任意位置。
 · vec.erase() - 删除 vector 中一个或多个元素。
 · vec.clear() - 清空所有元素。
+关于移动构造和对push_back的效率优化
+1. push_back 可以接收左值也可以接受右值，接收左值时使用拷贝构造，接收右值时使用移动构造
+2. emplace_back 接收右值时调用类的移动构造
+3. emplace_back 接收左值时，实际上的执行效果是先对传入的参数进行拷贝构造，然后使用拷贝构造后的副本，也就是说，emplace_back在接收一个左值的时候其效果和push_back一致！所以在使用emplace_back 时需要确保传入的参数是一个右值引用，如果不是，请使用std::move()进行转换
+4. emplace_back 接收多个参数时，可以调用匹配的构造函数实现在容器内的原地构造
+
 
 · 获取长度/容量
 · vec.size() - 获取 vector 目前持有的元素个数。

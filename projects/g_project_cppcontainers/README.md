@@ -13,3 +13,4 @@ stack，queue是容器适配器，默认底层使用deque容器，是头尾插�
 forwardlist 是单向链表
 unordered_map unordered_set是哈希实现的，查找效率Olog(1),插入是无序的
 hash_map hash_table 是基于hash算法实现的一类存储容器
+priority_queue 优先队列，和queue不同的就在于我们可以自定义其中数据的优先级, 让优先级高的排在队列前面,优先出队
