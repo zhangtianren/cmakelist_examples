@@ -1,0 +1,32 @@
+ 驱动器 D 中的卷是 软件
+ 卷的序列号是 E8B3-1FF9
+
+ D:\code\cmakelist_webrtc\webrtc\call 的目录
+
+2019/04/22  10:55    <DIR>          .
+2019/04/22  10:55    <DIR>          ..
+2019/01/16  20:19             4,945 audio_receive_stream.h
+2019/01/16  20:19             3,702 audio_send_stream.cc
+2019/01/16  20:19             4,643 audio_send_stream.h
+2019/01/16  20:19             1,754 audio_state.h
+2019/01/16  20:19            17,771 bitrate_allocator.cc
+2019/01/16  20:19             7,499 bitrate_allocator.h
+2019/01/16  20:19            23,220 bitrate_allocator_unittest.cc
+2019/01/16  20:19            11,735 bitrate_estimator_tests.cc
+2019/01/16  20:19             3,772 BUILD.gn
+2019/01/16  20:19            52,313 call.cc
+2019/01/16  20:19             5,934 call.h
+2019/01/16  20:19            29,646 call_perf_tests.cc
+2019/01/16  20:19            10,771 call_unittest.cc
+2019/04/22  10:54                47 CMakeLists.txt
+2019/01/16  20:19             2,731 flexfec_receive_stream.h
+2019/01/16  20:19             6,786 flexfec_receive_stream_impl.cc
+2019/01/16  20:19             1,974 flexfec_receive_stream_impl.h
+2019/01/16  20:19             5,961 flexfec_receive_stream_unittest.cc
+2019/01/16  20:19            24,231 rampup_tests.cc
+2019/01/16  20:19             5,047 rampup_tests.h
+2019/01/16  20:19               543 syncable.cc
+2019/01/16  20:19             1,280 syncable.h
+2019/04/22  10:55                 0 _names.txt
+              25 个文件        227,064 字节
+               2 个目录 19,030,700,032 可用字节

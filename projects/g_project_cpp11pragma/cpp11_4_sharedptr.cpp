@@ -4,6 +4,9 @@ using namespace std;
 
 
 /*
+std::unique_ptr 持有对对象的独有权，同一时刻只能有一个unique_ptr指向给定对象（通过禁止拷贝语义、只有移动语义来实现）。
+unique_ptr指针本身的生命周期：从unique_ptr指针创建时开始，直到离开作用域。
+
 std::shared_ptr包装了new操作符动态分别的内存，可以自由拷贝复制，基本上是使用最多的一个智能指针类型。
 
 std::make_shared封装了new方法，boost::make_shared之前的原则是既然释放资源delete由智能指针负责，

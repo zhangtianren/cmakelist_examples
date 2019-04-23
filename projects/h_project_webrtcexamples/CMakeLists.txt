@@ -1,0 +1,5 @@
+add_subdirectory(peerconnection)
+add_subdirectory(relayserver)
+add_subdirectory(stunprober)
+add_subdirectory(stunserver)
+add_subdirectory(turnserver)

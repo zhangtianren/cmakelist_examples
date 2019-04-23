@@ -1,0 +1,28 @@
+ 驱动器 D 中的卷是 软件
+ 卷的序列号是 E8B3-1FF9
+
+ D:\code\cmakelist_webrtc\webrtc\audio 的目录
+
+2019/04/22  10:39    <DIR>          .
+2019/04/22  10:39    <DIR>          ..
+2019/01/16  20:19            12,239 audio_receive_stream.cc
+2019/01/16  20:19             3,174 audio_receive_stream.h
+2019/01/16  20:19            15,098 audio_receive_stream_unittest.cc
+2019/01/16  20:19            15,802 audio_send_stream.cc
+2019/01/16  20:19             3,088 audio_send_stream.h
+2019/01/16  20:19            21,196 audio_send_stream_unittest.cc
+2019/01/16  20:19             3,324 audio_state.cc
+2019/01/16  20:19             2,342 audio_state.h
+2019/01/16  20:19             6,605 audio_state_unittest.cc
+2019/01/16  20:19             5,696 audio_transport_proxy.cc
+2019/01/16  20:19             3,195 audio_transport_proxy.h
+2019/01/16  20:19             2,657 BUILD.gn
+2019/04/22  10:38             1,793 CMakeLists.txt
+2019/01/16  20:19               916 conversion.h
+2019/01/16  20:19               545 DEPS
+2019/01/16  20:19               227 OWNERS
+2019/01/16  20:19             1,228 scoped_voe_interface.h
+2019/04/19  15:08    <DIR>          utility
+2019/04/22  10:39                 0 _names.txt
+              18 个文件         99,125 字节
+               3 个目录 19,031,515,136 可用字节

@@ -1,0 +1,18 @@
+ 驱动器 D 中的卷是 软件
+ 卷的序列号是 E8B3-1FF9
+
+ D:\code\cmakelist_webrtc\webrtc\api\audio_codecs 的目录
+
+2019/04/22  10:27    <DIR>          .
+2019/04/22  10:27    <DIR>          ..
+2019/01/16  20:19             5,905 audio_decoder.cc
+2019/01/16  20:19             7,313 audio_decoder.h
+2019/01/16  20:19             1,271 audio_decoder_factory.h
+2019/01/16  20:19             3,071 audio_format.cc
+2019/01/16  20:19             2,998 audio_format.h
+2019/01/16  20:19             1,133 BUILD.gn
+2019/01/16  20:19               767 builtin_audio_decoder_factory.cc
+2019/01/16  20:19             1,019 builtin_audio_decoder_factory.h
+2019/04/22  10:27                 0 _names.txt
+               9 个文件         23,477 字节
+               2 个目录 19,031,609,344 可用字节

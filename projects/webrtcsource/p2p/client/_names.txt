@@ -1,0 +1,15 @@
+ 驱动器 D 中的卷是 软件
+ 卷的序列号是 E8B3-1FF9
+
+ D:\code\cmakelist_examples\projects\wbertcsource\p2p\client 的目录
+
+2019/04/22  15:22    <DIR>          .
+2019/04/22  15:22    <DIR>          ..
+2019/01/16  20:19            55,380 basicportallocator.cc
+2019/01/16  20:19            14,639 basicportallocator.h
+2019/01/16  20:19            88,734 basicportallocator_unittest.cc
+2019/01/16  20:19             2,805 socketmonitor.cc
+2019/01/16  20:19             1,880 socketmonitor.h
+2019/04/22  15:22                 0 _names.txt
+               6 个文件        163,438 字节
+               2 个目录 19,020,894,208 可用字节

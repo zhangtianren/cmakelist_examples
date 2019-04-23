@@ -1,0 +1,15 @@
+# 版本限定
+CMAKE_MINIMUM_REQUIRED(VERSION 2.7)                      
+
+# 项目名称
+PROJECT(h_webrtcexample_turnserver)
+
+# 添加源文件列表变量
+SET(SRC_LIST turnserver_main.cc)
+
+# 打印编译目录和项目目录路径
+MESSAGE(STATUS "This is BINARY dir " ${PROJECT_BINARY_DIR})
+MESSAGE(STATUS "This is SOURCE dir " ${PROJECT_SOURCE_DIR})
+
+# 生成可执行文件
+ADD_EXECUTABLE(h_webrtcexample_turnserver ${SRC_LIST})
