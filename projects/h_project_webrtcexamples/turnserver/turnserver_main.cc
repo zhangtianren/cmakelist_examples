@@ -17,6 +17,10 @@
 #include "../../webrtcsource/base/stringencode.h"
 #include "../../webrtcsource/base/thread.h"
 
+#pragma comment(lib, "ws2_32.lib")
+#pragma comment(lib, "secur32.lib")
+#pragma comment(lib,"winmm.lib")
+
 static const char kSoftware[] = "libjingle TurnServer";
 
 class TurnFileAuth : public cricket::TurnAuthInterface {

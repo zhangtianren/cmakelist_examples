@@ -8,14 +8,14 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "webrtc/base/openssladapter.h"
+#include "openssladapter.h"
 
 #if defined(WEBRTC_POSIX)
 #include <unistd.h>
 #endif
 
 // Must be included first before openssl headers.
-#include "webrtc/base/win32.h"  // NOLINT
+#include "win32.h"  // NOLINT
 
 #include <openssl/bio.h>
 #include <openssl/crypto.h>
@@ -24,15 +24,16 @@
 #include <openssl/rand.h>
 #include <openssl/x509.h>
 #include <openssl/x509v3.h>
+#include <openssl/ossl_typ.h>
 
-#include "webrtc/base/arraysize.h"
-#include "webrtc/base/checks.h"
-#include "webrtc/base/logging.h"
-#include "webrtc/base/openssl.h"
-#include "webrtc/base/safe_conversions.h"
-#include "webrtc/base/sslroots.h"
-#include "webrtc/base/stringutils.h"
-#include "webrtc/base/thread.h"
+#include "arraysize.h"
+#include "checks.h"
+#include "logging.h"
+#include "openssl.h"
+#include "safe_conversions.h"
+#include "sslroots.h"
+#include "stringutils.h"
+#include "thread.h"
 
 #ifndef OPENSSL_IS_BORINGSSL
 
@@ -65,6 +66,41 @@ struct CRYPTO_dynlock_value {
 //////////////////////////////////////////////////////////////////////
 // SocketBIO
 //////////////////////////////////////////////////////////////////////
+
+typedef struct bio_method_st
+{
+	int type;
+	const char *name;
+	int(*bwrite)(BIO *, const char *, int);
+	int(*bread)(BIO *, char *, int);
+	int(*bputs)(BIO *, const char *);
+	int(*bgets)(BIO *, char *, int);
+	long(*ctrl)(BIO *, int, long, void *);
+	int(*create)(BIO *);
+	int(*destroy)(BIO *);
+	long(*callback_ctrl)(BIO *, int, bio_info_cb *);
+} BIO_METHOD;
+
+struct bio_st
+{
+	BIO_METHOD *method;
+	/*BIO方法结构，是决定BIO类型和行为的重要参数，各种BIO的不同之处主要也正在于此项。*/
+	/* bio, mode, argp, argi, argl, ret */
+	long(*callback)(struct bio_st *, int, const char *, int, long, long); //BIO回调函数
+	char *cb_arg; /* first argument for the callback */ //回调函数的第一个参量
+	int init; //初始化标志，初始化了为1，否则为0
+	int shutdown; //BIO开关标志，如果为1，则处于关闭状态，如果为0，则处于打开的状态。
+	int flags; /* extra storage */
+	int retry_reason;
+	int num;
+	void *ptr;
+	struct bio_st *next_bio; /* used by filter BIOs */
+	struct bio_st *prev_bio; /* used by filter BIOs */
+	int references;
+	unsigned long num_read;//读出的数据长度
+	unsigned long num_write;//写入的数据长度
+	CRYPTO_EX_DATA ex_data;
+};
 
 static int socket_write(BIO* h, const char* buf, int num);
 static int socket_read(BIO* h, char* buf, int size);

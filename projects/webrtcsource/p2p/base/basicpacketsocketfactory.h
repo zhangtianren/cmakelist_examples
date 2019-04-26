@@ -11,7 +11,7 @@
 #ifndef WEBRTC_P2P_BASE_BASICPACKETSOCKETFACTORY_H_
 #define WEBRTC_P2P_BASE_BASICPACKETSOCKETFACTORY_H_
 
-#include "webrtc/p2p/base/packetsocketfactory.h"
+#include "packetsocketfactory.h"
 
 namespace rtc {
 

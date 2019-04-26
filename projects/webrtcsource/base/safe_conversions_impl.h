@@ -148,9 +148,7 @@ template <typename Dst, typename Src>
 struct RangeCheckImpl<Dst, Src, DST_SIGNED, SRC_UNSIGNED, OVERLAPS_RANGE> {
   static RangeCheckResult Check(Src value) {
     typedef std::numeric_limits<Dst> DstLimits;
-    return sizeof(Dst) > sizeof(Src) ? TYPE_VALID :
-           BASE_NUMERIC_RANGE_CHECK_RESULT(
-               value <= static_cast<Src>(DstLimits::max()), true);
+    return sizeof(Src) < sizeof(Dst) ? BASE_NUMERIC_RANGE_CHECK_RESULT(value <= static_cast<Src>(DstLimits::max()), true) : TYPE_VALID;
   }
 };
 

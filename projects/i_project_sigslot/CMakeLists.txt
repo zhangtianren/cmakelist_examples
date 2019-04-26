@@ -8,7 +8,7 @@ PROJECT(i_project_sigslot)
 
 # 添加源文件列表变量
 SET(SRC_LIST main.cpp 
-		#sigslot.h 
+		sigslot.h 
 		#sigslot.cc 
 		sigslot_cpp.h 
 		sigslot_cpp.cpp

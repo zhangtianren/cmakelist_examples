@@ -8,23 +8,23 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "webrtc/p2p/base/turnserver.h"
+#include "turnserver.h"
 
 #include <tuple>  // for std::tie
 
-#include "webrtc/p2p/base/asyncstuntcpsocket.h"
-#include "webrtc/p2p/base/common.h"
-#include "webrtc/p2p/base/packetsocketfactory.h"
-#include "webrtc/p2p/base/stun.h"
-#include "webrtc/base/bind.h"
-#include "webrtc/base/bytebuffer.h"
-#include "webrtc/base/checks.h"
-#include "webrtc/base/helpers.h"
-#include "webrtc/base/logging.h"
-#include "webrtc/base/messagedigest.h"
-#include "webrtc/base/socketadapters.h"
-#include "webrtc/base/stringencode.h"
-#include "webrtc/base/thread.h"
+#include "asyncstuntcpsocket.h"
+#include "common.h"
+#include "packetsocketfactory.h"
+#include "stun.h"
+#include "../../base/bind.h"
+#include "../../base/bytebuffer.h"
+#include "../../base/checks.h"
+#include "../../base/helpers.h"
+#include "../../base/logging.h"
+#include "../../base/messagedigest.h"
+#include "../../base/socketadapters.h"
+#include "../../base/stringencode.h"
+#include "../../base/thread.h"
 
 namespace cricket {
 

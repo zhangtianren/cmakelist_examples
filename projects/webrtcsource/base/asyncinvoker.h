@@ -14,12 +14,12 @@
 #include <memory>
 #include <utility>
 
-#include "../../base/asyncinvoker-inl.h"
-#include "../../base/bind.h"
-#include "../../base/constructormagic.h"
-#include "../../base/event.h"
-#include "../../base/sigslot.h"
-#include "../../base/thread.h"
+#include "asyncinvoker-inl.h"
+#include "bind.h"
+#include "constructormagic.h"
+#include "event.h"
+#include "sigslot.h"
+#include "thread.h"
 
 namespace rtc {
 

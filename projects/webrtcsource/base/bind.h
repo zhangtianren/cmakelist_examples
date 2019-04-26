@@ -64,8 +64,8 @@
 #include <tuple>
 #include <type_traits>
 
-#include "../../base/scoped_ref_ptr.h"
-#include "../../base/template_util.h"
+#include "scoped_ref_ptr.h"
+#include "template_util.h"
 
 #define NONAME
 

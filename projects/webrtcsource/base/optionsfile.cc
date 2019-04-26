@@ -8,13 +8,13 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "webrtc/base/optionsfile.h"
+#include "optionsfile.h"
 
 #include <ctype.h>
 
-#include "webrtc/base/logging.h"
-#include "webrtc/base/stream.h"
-#include "webrtc/base/stringencode.h"
+#include "logging.h"
+#include "stream.h"
+#include "stringencode.h"
 
 namespace rtc {
 

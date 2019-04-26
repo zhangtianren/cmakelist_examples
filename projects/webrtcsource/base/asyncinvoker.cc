@@ -8,11 +8,11 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "webrtc/base/asyncinvoker.h"
+#include "asyncinvoker.h"
 
-#include "webrtc/base/atomicops.h"
-#include "webrtc/base/checks.h"
-#include "webrtc/base/logging.h"
+#include "atomicops.h"
+#include "checks.h"
+#include "logging.h"
 
 namespace rtc {
 
