@@ -1,0 +1,28 @@
+{
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "clang++ build active file",
+            "command": "/usr/bin/clang++",
+            "args": [
+                "-g",
+                //"${file}",
+                "${workspaceFolder}/list_test.cpp",
+                "${workspaceFolder}/tree_test.cpp",
+                "${workspaceFolder}/queue_test.cpp",
+                "${workspaceFolder}/stack_test.cpp",
+                "${workspaceFolder}/list.cpp",
+                "${workspaceFolder}/stack.cpp",
+                "${workspaceFolder}/queue.cpp",
+                "${workspaceFolder}/tree.cpp",
+                "${workspaceFolder}/main.cpp",
+                "-o",
+                "${workspaceFolder}/j_datastructure"
+            ],
+            "options": {
+                "cwd": "/usr/bin"
+            }
+        }
+    ],
+    "version": "2.0.0"
+}
