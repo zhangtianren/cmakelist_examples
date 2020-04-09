@@ -5,6 +5,8 @@
 #include <memory>
 #include <string>
 #include <stdlib.h>
+#include <stack>
+#include <vector>
 
 // override not work ,, stack stored with Object not pointer, 
 class ElementType_Op : public ElementType
@@ -446,6 +448,29 @@ void sqstack_calculate(std::string strSrc, int want)
     printf("stack calculate%s %d, want %d\n", str.c_str(), res, want);
 }
 
+bool test_stack_in_out_order(std::vector<int> pushV, std::vector<int> popV)
+{
+    if (pushV.size() != popV.size())
+        return false;
+    if (pushV.size() == 0)
+        return false;
+    std::stack<int> s;
+    int size = pushV.size();
+    int j = 0;
+    for (int i = 0;i<size; i++)
+    {
+        s.push(pushV.at(size - 1 - i));
+        while (!s.empty() && s.top() == popV.at(j))
+        {
+            j++;
+            s.pop();
+        }
+    }
+    printf(" %d", s.empty());
+    return s.empty();
+    
+}
+
 // 不支持负数
 void test_stack_calculate()
 {
@@ -472,5 +497,14 @@ void test_stack()
 {
     // test_stack_sqstack();
     // test_stack_listack();
-    test_stack_calculate();
+    //test_stack_calculate();
+
+    int arraypush [] = { 1,2,3,4,5 };
+    int arraypop [] = { 3,5,4,2,1 };
+    std::vector<int> pushV;
+    std::vector<int> popV;
+
+    pushV.insert(pushV.begin(), arraypush, arraypush+5);
+    popV.insert(popV.begin(), arraypop, arraypop+5);
+    test_stack_in_out_order(pushV, popV);
 }

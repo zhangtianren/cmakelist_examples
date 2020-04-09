@@ -4,7 +4,7 @@
 int main(void)
 {
 	//test_list();
-	//test_stack();
+	test_stack();
 	//test_queue();
-	test_tree();
+	//test_tree();
 }
