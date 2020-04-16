@@ -5,57 +5,57 @@
 #include <vector>
 
 using namespace std;
-
-int subMaxNumber(int number)
+void printv(const vector<int>& num)
 {
-	if (number < 10)
-		return number;
-	int temp = number;
-	std::vector<int> data;
-	while (temp != 0)
-	{
-		data.insert(data.begin(), temp % 10);
-		temp = temp / 10;
-	}
-	bool bFind = false;
-	int last = data[0];
-	int res = 0;
-	for (int i = 1; i<data.size(); i++)
-	{
-		if (bFind)
-		{
-			res = res * 10 + data[i];
-			continue;
-		}
-		if (last <= data[i])
-		{
-			bFind = true;
-			res = res * 10 + data[i];
-			continue;
-		}
-		else {
-			res = res * 10 + last;
-			last = data[i];
-		}
-	}
-
-	return res;
+    for (int i=0;i< num.size();i++)
+    {
+        printf(" %d ", num.at(i));
+    }
 }
 
+int maxof(const vector<int>& num, int start, int end)
+    {
+        int max = num.at(start);
+        for (int i=start;i<=end;i++)
+        {
+            if (num.at(i) > max)
+                max = num.at(i);
+        }
+        return max;
+    }
+    vector<int> maxInWindows(const vector<int>& num, unsigned int size)
+    {
+        vector<int> result;
+        if (size == 1)
+        {
+            result.insert(result.begin(), num.begin(), num.end());
+            return result;
+        }
+        if (num.size() == 0)
+            return result;
+        if (num.size() <= size)
+        {
+            result.push_back(maxof(num, 0, num.size() - 1));
+            return result;
+        }
+        
+        for (int i = 0;i<= num.size() - size;i++)
+        {
+            result.push_back(maxof(num, i, i+ size -1));
+        }
+        
+        return result;
+        
+        
+    }
 int main(void)
 {
+	int n[] = {2,3,4,2,6,2,5,1};
+	std::vector<int> v;
+	v.insert(v.begin(), n, n+8);
 
-
-	unsigned int input = 765484;
-	unsigned int number = 1;
-	cin >> input;
-	cin >> number;
-
-	unsigned int res = input;
-	for (unsigned int i = 0; i<number; i++)
-	{
-		res = subMaxNumber(res);
-	}
-	cout << res;
+    printv(v);
+	printv(maxInWindows(v, 0));
+	
 	return 0;
 }
