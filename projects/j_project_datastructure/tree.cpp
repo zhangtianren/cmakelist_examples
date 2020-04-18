@@ -447,6 +447,7 @@ bool iscomplete(BiTree* ptree)
 }
 
 // 是否是平衡二叉树
+// 有点问题， 子树也要平衡, 要计算保存所有的节点深度.每个节点比较
 bool isbalance(BiTree* ptree)
 {
     int deep_left = ptree->hasleft ? deep(ptree->left) : 0;
