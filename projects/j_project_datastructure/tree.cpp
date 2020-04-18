@@ -448,6 +448,47 @@ bool iscomplete(BiTree* ptree)
 
 // 是否是平衡二叉树
 // 有点问题， 子树也要平衡, 要计算保存所有的节点深度.每个节点比较
+/*
+void gen_deep_map(unordered_map<TreeNode*, int>& map_deep, TreeNode* root)
+    {
+        if (root == NULL )
+            return;
+        int deep_left = 0;
+        if (root->left != NULL){
+            gen_deep_map(map_deep, root->left);
+            deep_left = map_deep.at(root->left);
+        } 
+        int deep_right = 0;
+        if (root->right != NULL )
+        {
+            gen_deep_map(map_deep, root->right);
+            deep_right = map_deep.at(root->right);
+        }
+        int deep =  1 + (deep_left > deep_right ? deep_left : deep_right);
+        
+        std::pair<TreeNode*,int> deppair (root, deep);
+        map_deep.insert(deppair);
+    }
+    
+    bool is_bananced(unordered_map<TreeNode*, int>& map_deep, TreeNode* root)
+    {
+        if (root == NULL)
+            return true;
+        
+        int deep_left = root->left == NULL ? 0 : map_deep.at(root->left);
+        int deep_right = root->right == NULL ? 0 : map_deep.at(root->right);
+        if ((deep_left > deep_right +1) || (deep_right > deep_left +1))
+            return false;
+        return is_bananced(map_deep, root->left) && is_bananced(map_deep, root->right); 
+    }
+    
+    bool IsBalanced_Solution(TreeNode* pRoot) {
+        unordered_map<TreeNode*, int> map_deep;
+        gen_deep_map(map_deep, pRoot);
+        
+        return is_bananced(map_deep, pRoot);
+    }
+    */
 bool isbalance(BiTree* ptree)
 {
     int deep_left = ptree->hasleft ? deep(ptree->left) : 0;
