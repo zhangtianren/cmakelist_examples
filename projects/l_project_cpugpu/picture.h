@@ -1,4 +1,4 @@
-
+#pragma once
 #pragma pack (1)
 class Picture
 {
@@ -40,7 +40,7 @@ public:
     {
         BMP_FILEHEADER fileHeader;      // 文件头
         BMP_INFOHEADER infoHeader;      // 信息头
-        // RGBQUAD rgbquad;                // 可选,调色板
+        //RGBQUAD rgbquad;                // 可选,调色板
     }BMP_HEADER;
 
     typedef struct tag_ImageProp
@@ -50,6 +50,7 @@ public:
         BMP_HEADER header;              // bmp头
         unsigned long int bytesH;       // 单行水平像素的字节数 (内存宽度对齐, 所以有可能不是单纯的 pixelsH*3)
 
+        unsigned char* reserved;        // bmp 头到图像数据间的冗余区
         unsigned char** data;           // 图像数据 二维数组 （高 * 水平像素的字节数)
     }ImageProp;
 
@@ -79,7 +80,8 @@ public:
     void releaseImageProp(ImageProp** ppIp);
     // 释放图像数据区
     void releaseImagePropData(ImageProp* pIp);
-private:
+
+protected:
     ImageProp _ip;
     
 };
