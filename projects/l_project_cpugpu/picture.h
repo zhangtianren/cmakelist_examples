@@ -84,4 +84,5 @@ public:
 protected:
     ImageProp _ip;
     
+    ImageProp* _prepareImageProp();
 };

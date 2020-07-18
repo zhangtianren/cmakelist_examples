@@ -22,6 +22,12 @@ public:
     // 角度旋转
     ImageProp* rotate(short angle);
 
+    void _rolloverH_thread(ImageProp* res , int id);
+    void _rolloverV_thread(ImageProp* res , int id);
+    void _rotate_thread(ImageProp* res , int id);
+    
 private:
     unsigned short _workerCount;
+
+    
 };

@@ -4,10 +4,13 @@
 #include <stdlib.h>
 #include <time.h>
 #include <memory.h>
+#include <list>
+#include <thread>
+#include <atomic>
 
 PictureEx::PictureEx()
 {
-    
+    _workerCount = 4;
 }
 
 PictureEx::~PictureEx()
@@ -17,28 +20,72 @@ PictureEx::~PictureEx()
 
 void PictureEx::setWorkerThreads(unsigned short n)
 {
+    if (n == 0 || n >= 64)
+        return;
 
+    _workerCount = n;
 }
 
 // 水平-垂直翻转
 Picture::ImageProp* PictureEx::rolloverH()
 {
-    ImageProp* res  = new ImageProp();
-    memset(res, 0, sizeof(ImageProp));
-
-    res->pixelsH    = _ip.pixelsH;
-    res->pixelsV    = _ip.pixelsV;
-    res->bytesH     = _ip.bytesH;
-    memcpy(&(res->header), &(_ip.header), sizeof(BMP_HEADER));
-
-    res->data = (unsigned char**)malloc(_ip.pixelsV * _ip.pixelsV * sizeof (unsigned char));
-    for (int i=0;i<_ip.pixelsV;i++)
+    if (_workerCount == 1)
     {
-        res->data[i] = (unsigned char*)malloc(_ip.bytesH * sizeof(unsigned char));
+        return Picture::rolloverH();
     }
 
-    for (int k = 0;k<_ip.pixelsV;k++)
+    ImageProp* res = _prepareImageProp();
+    std::list<std::thread> listThread;
+	for (int i = 0; i < _workerCount; ++i)
+	{
+        std::thread th(std::mem_fn(&PictureEx::_rolloverH_thread), this, i);
+		listThread.push_back(th);
+	}
+
+    for (auto& th : listThread)
+	{
+		th.join();
+	}
+
+    return res;
+}
+
+Picture::ImageProp* PictureEx::rolloverV()
+{
+    if (_workerCount == 1)
     {
+        return Picture::rolloverH();
+    }
+
+    ImageProp* res = _prepareImageProp();
+    std::list<std::thread> listThread;
+	for (int i = 0; i < _workerCount; ++i)
+	{
+        std::thread th(&PictureEx::_rolloverV_thread, this, i);
+		listThread.push_back(th);
+	}
+
+    for (auto& th : listThread)
+	{
+		th.join();
+	}
+
+    return res;
+}
+
+// 角度旋转
+Picture::ImageProp* PictureEx::rotate(short angle)
+{
+    
+}
+
+void PictureEx::_rolloverH_thread(ImageProp* res , int id)
+{
+    int devide = _ip.pixelsV / _workerCount;
+
+    for (int k = id; k < _ip.pixelsV && (_ip.pixelsV % k == id) ;k+=devide)
+    {
+
         for (int i=0;i<_ip.bytesH;i+=3)
         {
             res->data[k][i]     = _ip.data[k][_ip.bytesH - 3 - i];
@@ -47,16 +94,16 @@ Picture::ImageProp* PictureEx::rolloverH()
         }
     }
 
-    return res;
 }
-
-Picture::ImageProp* PictureEx::rolloverV()
+void PictureEx::_rolloverV_thread(ImageProp* res , int id)
 {
-
+    int devide = _ip.pixelsV / _workerCount;
+    for (int i = id; i < _ip.pixelsV && (_ip.pixelsV % i == id) ; i+=devide)
+    {
+        memcpy(res->data[i], _ip.data[_ip.pixelsV - i - 1], _ip.bytesH);
+    }
 }
-
-// 角度旋转
-Picture::ImageProp* PictureEx::rotate(short angle)
+void PictureEx::_rotate_thread(ImageProp* res , int id)
 {
     
 }

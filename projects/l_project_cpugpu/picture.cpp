@@ -90,8 +90,8 @@ void Picture::write(const void* pFile, const ImageProp& ip)
     }
 }
 
-// 水平-垂直翻转
-Picture::ImageProp* Picture::rolloverH()
+
+Picture::ImageProp* Picture::_prepareImageProp()
 {
     ImageProp* res  = new ImageProp();
     memset(res, 0, sizeof(ImageProp));
@@ -112,6 +112,14 @@ Picture::ImageProp* Picture::rolloverH()
     {
         res->data[i] = (unsigned char*)malloc(_ip.bytesH * sizeof(unsigned char));
     }
+
+    return res;
+}
+
+// 水平-垂直翻转
+Picture::ImageProp* Picture::rolloverH()
+{
+    ImageProp* res = _prepareImageProp();
 
     for (int k = 0;k<_ip.pixelsV;k++)
     {
@@ -129,25 +137,7 @@ Picture::ImageProp* Picture::rolloverH()
 }
 Picture::ImageProp* Picture::rolloverV()
 {
-    ImageProp* res  = new ImageProp();
-    memset(res, 0, sizeof(ImageProp));
-
-    res->pixelsH    = _ip.pixelsH;
-    res->pixelsV    = _ip.pixelsV;
-    res->bytesH     = _ip.bytesH;
-    memcpy(&(res->header), &(_ip.header), sizeof(BMP_HEADER));
-    int reserveSize = _ip.header.fileHeader.bfOffBits - sizeof(BMP_HEADER);
-    if (reserveSize > 0 && _ip.reserved)
-    {
-        res->reserved = (unsigned char*)malloc(reserveSize);
-        memcpy(res->reserved, _ip.reserved, reserveSize);
-    }
-
-    res->data = (unsigned char**)malloc(_ip.pixelsV * _ip.pixelsV * sizeof (unsigned char));
-    for (int i=0;i<_ip.pixelsV;i++)
-    {
-        res->data[i] = (unsigned char*)malloc(_ip.bytesH * sizeof(unsigned char));
-    }
+    ImageProp* res = _prepareImageProp();
 
     for (int i=0;i<_ip.pixelsV;i++)
     {
