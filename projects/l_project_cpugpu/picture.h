@@ -70,16 +70,22 @@ public:
     void write(const void* pFile, const ImageProp& ip);
 
     // 水平-垂直翻转
-    ImageProp* rolloverH();
-    ImageProp* rolloverV();
+    virtual ImageProp* rolloverH();
+    virtual ImageProp* rolloverV();
 
     // 角度旋转
-    ImageProp* rotate(short angle);
+    virtual ImageProp* rotate(short angle);
+
+    // 模糊 （滤波器取均值）滤波器半径 r
+    virtual ImageProp* blurred(int r);
 
     // 释放图像
     void releaseImageProp(ImageProp** ppIp);
     // 释放图像数据区
     void releaseImagePropData(ImageProp* pIp);
+
+    // 滤波器取均值
+    Pixel wavefilter_avg(const int x, const int y, const int r);
 
 protected:
     ImageProp _ip;

@@ -4,14 +4,15 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.7)
 
 #set(CMAKE_C_COMPILER "clang")
 #set(CMAKE_CXX_COMPILER "clang")
-set(CMAKE_CXX_FLAGS "-std=c++11")
+#set(CMAKE_CXX_FLAGS "-std=c++11")
 
 
 # 项目名称
-PROJECT(l_project_cpugpu LANGUAGES C CXX)
+PROJECT(l_project_cpugpu)
 
+# SET(SRC_LIST main_test.cpp)
 # 添加源文件列表变量
-SET(SRC_LIST main.cpp 
+SET(SRC_LIST main.cpp
             picture.h
             picture.cpp
             pictureex.h

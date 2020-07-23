@@ -123,8 +123,6 @@ Picture::ImageProp* Picture::rolloverH()
 
     for (int k = 0;k<_ip.pixelsV;k++)
     {
-        //res->data[k] = (unsigned char*)malloc(_ip.bytesH * sizeof(unsigned char));
-    
         for (int i=0;i<_ip.bytesH;i+=3)
         {
             res->data[k][i]     = _ip.data[k][_ip.bytesH - 3 - i];
@@ -147,11 +145,61 @@ Picture::ImageProp* Picture::rolloverV()
     return res;
 }
 
+Picture::Pixel Picture::wavefilter_avg(const int x, const int y, const int r)
+{
+    
+    Pixel p = {0 ,0 , 0};
+    if (x - r < 0 || x + r > _ip.pixelsH + 1 ||
+        y - r < 0 || y + r > _ip.pixelsH + 1 )
+        return p;
+
+    unsigned int count = (2 * r + 1) * (2 * r + 1);
+    unsigned int rall = 0;
+    unsigned int gall = 0;
+    unsigned int ball = 0;
+
+    for (int i = y - r; i <= y + r; i++ )
+    {
+        for (int j = x - r; j <= x + r; j++)
+        {
+            rall += _ip.data[i][j*3];
+            gall += _ip.data[i][j*3+1];
+            ball += _ip.data[i][j*3+2];
+        }
+    }
+    p.R = rall / count;
+    p.G = gall / count;
+    p.B = ball / count;
+    return p;
+}
+
+
+Picture::ImageProp* Picture::blurred(int r)
+{
+    if (r < 1 || r >= _ip.pixelsV || r >= _ip.pixelsH)
+        return NULL;
+    ImageProp* res = _prepareImageProp();
+
+    for (int i=r;i<_ip.pixelsV-r;i++)
+    {
+        for (int j=r; j<_ip.pixelsH-r;j++)
+        {
+            Pixel p = wavefilter_avg(j, i, r);
+            res->data[i][j*3] = p.R;
+            res->data[i][j*3 + 1] = p.G;
+            res->data[i][j*3 + 2] = p.B;
+        }
+    }
+    return res;
+}
+
 // 角度旋转
 Picture::ImageProp* Picture::rotate(short angle)
 {
     return NULL;
 }
+
+
 
 // 释放图像
 void Picture::releaseImageProp(ImageProp** ppIp)
