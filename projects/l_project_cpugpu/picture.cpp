@@ -144,16 +144,21 @@ Picture::ImageProp* Picture::rolloverV()
 
     return res;
 }
-
-Picture::Pixel Picture::wavefilter_avg(const int x, const int y, const int r)
+Picture::Triplet Picture::line_sum(unsigned int y, unsigned int x1, unsigned int x2 )
 {
-    
-    Pixel p = {0 ,0 , 0};
-    if (x - r < 0 || x + r > _ip.pixelsH + 1 ||
-        y - r < 0 || y + r > _ip.pixelsH + 1 )
-        return p;
+    Triplet trp = {0};
+    for (unsigned int i = x1;i <= x2; i++)
+    {
+        trp.a += _ip.data[y][i*3];
+        trp.b += _ip.data[y][i*3+1];
+        trp.c += _ip.data[y][i*3+2];
+    }
+    return trp;
+}
 
-    unsigned int count = (2 * r + 1) * (2 * r + 1);
+Picture::Triplet Picture::wavefilter_sum(unsigned int x, unsigned int y, unsigned int r)
+{
+    Triplet p = {0 ,0 , 0};
     unsigned int rall = 0;
     unsigned int gall = 0;
     unsigned int ball = 0;
@@ -167,9 +172,31 @@ Picture::Pixel Picture::wavefilter_avg(const int x, const int y, const int r)
             ball += _ip.data[i][j*3+2];
         }
     }
-    p.R = rall / count;
-    p.G = gall / count;
-    p.B = ball / count;
+    p.a = rall;
+    p.b = gall;
+    p.c = ball;
+    return p;
+}
+
+unsigned int Picture::wavefilter_count(unsigned int r)
+{
+    return (2 * r + 1) * (2 * r + 1);
+}
+
+Picture::Pixel Picture::wavefilter_avg(unsigned int x, unsigned int y, unsigned int r)
+{
+    
+    Pixel p = {0 ,0 , 0};
+    if (x - r < 0 || x + r > _ip.pixelsH + 1 ||
+        y - r < 0 || y + r > _ip.pixelsH + 1 )
+        return p;
+
+    unsigned int count = wavefilter_count(r);
+    Triplet trp = wavefilter_sum(x, y, r);
+
+    p.R = trp.a / count;
+    p.G = trp.b / count;
+    p.B = trp.c / count;
     return p;
 }
 

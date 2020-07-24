@@ -1,6 +1,7 @@
 #include "pictureex.h"
 
 #include <list>
+#include <deque>
 #include <thread>
 #include <iostream>
 using namespace std;
@@ -152,17 +153,56 @@ void PictureEx::_blurred_thread(ImageProp* res , int id, int r)
     //         res->data[i][j*3 + 2] = p.B;
     //     }
     // }
+    // r25 (t2 11919ms) (t4 12656ms) (t8 12317ms)
 
-    for (int i=id + r;i<_ip.pixelsV-r;i+=_workerCount)
+
+    // for (int i=id + r;i<_ip.pixelsV-r;i+=_workerCount)
+    // {
+    //     for (int j=r; j<_ip.pixelsH-r;j++)
+    //     {
+    //         Pixel p = wavefilter_avg(j, i, r);
+    //         res->data[i][j*3] = p.R;
+    //         res->data[i][j*3 + 1] = p.G;
+    //         res->data[i][j*3 + 2] = p.B;
+    //     }
+    // }
+    // r25 (t2 12338ms) (t4 10698ms) (t8 10151ms)
+    
+    unsigned int number = wavefilter_count(r);
+    for (int j=id + r; j<_ip.pixelsH-r;j+=_workerCount)
     {
-        for (int j=r; j<_ip.pixelsH-r;j++)
+        Triplet sum = { 0, 0, 0};
+        std::deque<Triplet> sumque;
+        for (int k = 0; k<2*r+1; k++)
         {
-            Pixel p = wavefilter_avg(j, i, r);
-            res->data[i][j*3] = p.R;
-            res->data[i][j*3 + 1] = p.G;
-            res->data[i][j*3 + 2] = p.B;
+            Triplet trp = line_sum(k, j-r, j+r);
+            sum.a+= trp.a;
+            sum.b+= trp.b;
+            sum.c+= trp.c;
+            sumque.push_back(trp);
+        }
+       
+        res->data[r][j*3] = sum.a/number;
+        res->data[r][j*3 + 1] = sum.b/number;
+        res->data[r][j*3 + 2] = sum.c/number;
+
+        for (int i=r+1;i<_ip.pixelsV-r;i++)
+        {
+            Triplet trp = line_sum(i+r, j-r, j+r);
+            Triplet last = sumque.front();
+            sumque.pop_front();
+            sumque.push_back(trp);
+
+            sum.a = sum.a + trp.a - last.a;
+            sum.b = sum.b + trp.b - last.b;
+            sum.c = sum.c + trp.c - last.c;
+
+            res->data[i][j*3] = sum.a/number;
+            res->data[i][j*3 + 1] = sum.b/number;
+            res->data[i][j*3 + 2] = sum.c/number;
         }
     }
+    // r25 (t2 1026ms) (t4 665ms) (t8 673ms) (t10 712ms) (t12 669ms)
 }
 
 void PictureEx::_rotate_thread(ImageProp* res , int id)

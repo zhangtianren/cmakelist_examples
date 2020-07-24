@@ -61,6 +61,13 @@ public:
         unsigned char B;
     }Pixel;
 
+    typedef struct tag_Triplet
+    {
+        unsigned int a;
+        unsigned int b;
+        unsigned int c;
+    }Triplet;
+
     Picture();
     ~Picture();
 
@@ -85,7 +92,11 @@ public:
     void releaseImagePropData(ImageProp* pIp);
 
     // 滤波器取均值
-    Pixel wavefilter_avg(const int x, const int y, const int r);
+    Pixel wavefilter_avg(unsigned int x, unsigned int y, unsigned int r);
+    Triplet wavefilter_sum(unsigned int x, unsigned int y, unsigned int r);
+    unsigned int wavefilter_count(unsigned int r);
+    Triplet line_sum(unsigned int y, unsigned int x1, unsigned int x2 );
+
 
 protected:
     ImageProp _ip;
