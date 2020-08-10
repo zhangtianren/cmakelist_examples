@@ -71,6 +71,20 @@ void test(Picture* p1, int threadnumber)
         
         p1->releaseImageProp(&pblurred);
     }
+
+    if (cmd_set.find('w') != cmd_set.end())
+    { 
+        gettimeofday(&start, NULL);
+        Picture::ImageProp* pbwimg = p1->tobwimage();
+        gettimeofday(&end, NULL);
+        timeuse = (end.tv_sec-start.tv_sec)*1000000+(end.tv_usec-start.tv_usec);//微秒
+        printf("%d tobwimage cost %.2fms\n", threadnumber,  timeuse/1000);
+
+        sprintf(filename, "%d_abc_bwimage.bmp", threadnumber);
+        p1->write(filename, *pbwimg);
+        
+        p1->releaseImageProp(&pbwimg);
+    }
     
 }
 

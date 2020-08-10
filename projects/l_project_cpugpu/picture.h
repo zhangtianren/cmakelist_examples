@@ -86,6 +86,17 @@ public:
     // 模糊 （滤波器取均值）滤波器半径 r
     virtual ImageProp* blurred(int r);
 
+
+    // rgb 24位 彩色图像变为 B&W 8位 图像
+    virtual ImageProp* tobwimage();
+    // gaussfilter 平滑滤波减小噪声
+    virtual ImageProp* gaussianfilter();
+    // 边缘增强
+    virtual ImageProp* sobel();
+    // B&W灰度转二值黑白图像
+    virtual ImageProp* threshold();
+
+
     // 释放图像
     void releaseImageProp(ImageProp** ppIp);
     // 释放图像数据区
@@ -102,4 +113,5 @@ protected:
     ImageProp _ip;
     
     ImageProp* _prepareImageProp();
+    ImageProp* _prepareImagePropEx();
 };

@@ -93,6 +93,19 @@ void Picture::write(const void* pFile, const ImageProp& ip)
 
 Picture::ImageProp* Picture::_prepareImageProp()
 {
+    ImageProp* res  = _prepareImagePropEx();
+
+    res->data = (unsigned char**)malloc(_ip.pixelsV  * sizeof (unsigned char*));
+    for (int i=0;i<_ip.pixelsV;i++)
+    {
+        res->data[i] = (unsigned char*)malloc(_ip.bytesH * sizeof(unsigned char));
+    }
+
+    return res;
+}
+
+Picture::ImageProp* Picture::_prepareImagePropEx()
+{
     ImageProp* res  = new ImageProp();
     memset(res, 0, sizeof(ImageProp));
 
@@ -107,12 +120,7 @@ Picture::ImageProp* Picture::_prepareImageProp()
         memcpy(res->reserved, _ip.reserved, reserveSize);
     }
 
-    res->data = (unsigned char**)malloc(_ip.pixelsV * _ip.pixelsV * sizeof (unsigned char));
-    for (int i=0;i<_ip.pixelsV;i++)
-    {
-        res->data[i] = (unsigned char*)malloc(_ip.bytesH * sizeof(unsigned char));
-    }
-
+    res->data = NULL;
     return res;
 }
 
@@ -223,6 +231,46 @@ Picture::ImageProp* Picture::blurred(int r)
 // 角度旋转
 Picture::ImageProp* Picture::rotate(short angle)
 {
+    return NULL;
+}
+
+// rgb 24位 彩色图像变为 B&W 8位 图像
+Picture::ImageProp* Picture::tobwimage()
+{
+    ImageProp* bwimage = _prepareImagePropEx();
+    bwimage->bytesH = _ip.pixelsH;
+    bwimage->data = (unsigned char**)malloc(_ip.pixelsV * sizeof (unsigned char*));
+    for (int i=0;i<_ip.pixelsV;i++)
+    {
+        bwimage->data[i] = (unsigned char*)malloc(_ip.pixelsH * sizeof(unsigned char));
+    }
+    
+    for (unsigned int i = 0; i < _ip.pixelsV; i++)
+    {
+        for (unsigned int j = 0; j < _ip.pixelsH; j++)
+        {
+            unsigned int x = j*3;
+            bwimage->data[i][x] = (_ip.data[i][x] +
+                _ip.data[i][x+1] + 
+                _ip.data[i][x+2]) / 3;
+        }
+    }
+
+    return bwimage;
+}
+    // gaussfilter 平滑滤波减小噪声
+Picture::ImageProp* Picture::gaussianfilter() 
+{ 
+    return NULL;
+}
+    // 边缘增强
+Picture::ImageProp* Picture::sobel() 
+{ 
+    return NULL;
+}
+    // B&W灰度转二值黑白图像
+Picture::ImageProp* Picture::threshold() 
+{ 
     return NULL;
 }
 
